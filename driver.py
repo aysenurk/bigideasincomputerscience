@@ -1,8 +1,5 @@
-import random
 import sys
 import os
-import re
-import math
 
 # #####
 # What it is going to be done is taking inputs
