@@ -4,7 +4,7 @@ mylist=["UR","DR","UR","DR","DR","DR","UL"]
 validationList = []
 
 
-def calculateLengthOfPossibleMoves(moveList, start, boardDimensionality):
+def possibleMoves(moveList, start, boardDimensionality):
    global validationList
    validationList = []
    newList = list(start)
@@ -15,7 +15,13 @@ def calculateLengthOfPossibleMoves(moveList, start, boardDimensionality):
                addMoveToVisitedBlocksList(newList) #add move to visited blocks list so you can keep a record not to visit it again
            else:
                break
-   return len(validationList)-1 #return one less of a total is beacause starting position is also kept in validation list so we donot visit it again
+   return validationList #return one less of a total is beacause starting position is also kept in validation list so we donot visit it again
+
+
+
+
+def calculateLengthOfPossibleMoves(moveList, start, boardDimensionality):
+    return len(possibleMoves(moveList, start, boardDimensionality))
 
 
 def isValidMove(move, newList, boardDimensionality):
