@@ -24,6 +24,8 @@ while (y > n):
 numberOfGenerations = sys.argv[4]
 numberOfGenerations = int(numberOfGenerations)
 
+constants = ['RU', 'RD', 'DR', 'DL', 'UR', 'UL', 'LU', 'LD']
+
 #  This variables up to programmer
 populationSize = 1000
 survivalRatio = 0.1
@@ -53,7 +55,7 @@ def make_population():
     return population
 
 
-def dumy_func(list):
+def dumy_func(list, survivalRatio):
     # mutation cross over made here
     return list
 
@@ -70,7 +72,7 @@ def generation(population):
 
     bestFromPopulation = population[0:(survivors - 1)]
 
-    population = dumy_func(bestFromPopulation)
+    population = dumy_func(bestFromPopulation, survivalRatio)
 
     return population
 
@@ -98,7 +100,7 @@ class Individual:
 
     def create(self):
         created_list = list()
-        constants = ['RU', 'RD', 'DR', 'DL', 'UR', 'UL', 'LU', 'LD']
+
         from random import randint
         for i in range(maxNumberOfMoves):
             position = randint(0, (len(constants) - 1))
@@ -108,7 +110,10 @@ class Individual:
         return created_list
 
     def evaluate(self):
-        numberOfMoves = 0  # that can possible done with that individual
+        from fitnessfunction import calculateLengthOfPossibleMoves
+        numberOfMoves = calculateLengthOfPossibleMoves(self.gene)
+        # that can possible done with that individual
+
         # numberOfMoves = fitness function will give me the length
         return numberOfMoves
 
