@@ -54,12 +54,6 @@ def make_population():
         population.append(Individual())
     return population
 
-
-def dumy_func(list, survivalRatio):
-    # mutation cross over made here
-    return list
-
-
 # This function executes one generation of dying solutions and new solutions being born.
 def generation(population):
     # Sort the solutions by merit (they've already calculated their own fitness upon being created)
@@ -72,7 +66,8 @@ def generation(population):
 
     bestFromPopulation = population[0:(survivors - 1)]
 
-    population = dumy_func(bestFromPopulation, survivalRatio)
+    from Reproduction import reproduce
+    population = reproduce(bestFromPopulation, survivalRatio)
 
     return population
 
