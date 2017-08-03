@@ -27,8 +27,8 @@ numberOfGenerations = int(numberOfGenerations)
 constants = ['RU', 'RD', 'DR', 'DL', 'UR', 'UL', 'LU', 'LD']
 
 #  This variables up to programmer
-populationSize = 1000
-survivalRatio = 0.1
+populationSize = 3000
+survivalRatio = 0.5
 
 # delete that later what we are going to is elite would be true
 # If elite is true then only the best solutions survive, instead of also some random ones.
@@ -64,10 +64,18 @@ def generation(population):
 
     survivors = int(len(population) * survivalRatio)
 
-    bestFromPopulation = population[0:(survivors - 1)]
+    #bestFromPopulation = population[0:(survivors - 1)]
+
+    bestFromPopulation = []
+    for i in range (survivors -1):
+        bestFromPopulation.append((population[i]).gene)
 
     from Reproduction import reproduce
-    population = reproduce(bestFromPopulation, survivalRatio)
+    genomes = reproduce(bestFromPopulation, len(population))
+    population = [None] * len(population)
+
+    for i,genome in enumerate(genomes):
+        population[i] = Individual(genome)
 
     return population
 
@@ -106,7 +114,7 @@ class Individual:
 
     def evaluate(self):
         from fitnessfunction import calculateLengthOfPossibleMoves
-        numberOfMoves = calculateLengthOfPossibleMoves(self.gene)
+        numberOfMoves = calculateLengthOfPossibleMoves(self.gene, [x, y], n )
         # that can possible done with that individual
 
         # numberOfMoves = fitness function will give me the length
@@ -122,15 +130,23 @@ def run():
         exit()
     population = make_population()
     best = findbest(population)
-    print("Best solution in population 1: length: " + str(best.numberOfMoves) + ", solution: " + str(best.gene))
+    from fitnessfunction import possibleMoves
+    print("Best solution in population 1: the Length of Possible Moves: " + str(best.numberOfMoves) + ", solution: "
+          + str(possibleMoves(best.gene, [x, y], n)))
     for i in range(numberOfGenerations - 1):
         population = generation(population)
         if printValues is True:
             best = findbest(population)
-            print("Best solution in population " + str(i + 2) + ": length: " + str(
-                best.numberOfMoves) + ", solution: " + str(best.gene))
+            print("Best solution in population " + str(i + 2) + ": the Length of Possible Moves: " + str(
+                best.numberOfMoves) + ", solution: " + str(possibleMoves(best.gene, [x, y], n)))
     return findbest(population)
 
 
-best = run()
-print("Best solution found has length: " + str((best.numberOfMoves)) + ", solution: " + str(best.gene))
+def main():
+    best = run()
+    from fitnessfunction import possibleMoves
+    print("Best solution found: the Length of Possible Moves: " + str((best.numberOfMoves)) + ", solution: " + str(
+            possibleMoves(best.gene, [x, y], n)))
+
+if __name__ == '__main__':
+    main()
