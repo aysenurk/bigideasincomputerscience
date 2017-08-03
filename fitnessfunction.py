@@ -1,6 +1,5 @@
 import copy
-currentPositionCoordinate=[3,2]
-mylist=["UR","DR","UR","DR","DR","DR","UL"]
+mylist=["UR","DR","LU","RU","DL","UL"]
 validationList = []
 
 
@@ -15,6 +14,8 @@ def possibleMoves(moveList, start, boardDimensionality):
                addMoveToVisitedBlocksList(newList) #add move to visited blocks list so you can keep a record not to visit it again
            else:
                break
+       else:
+           break
    return validationList #return one less of a total is beacause starting position is also kept in validation list so we donot visit it again
 
 
@@ -67,5 +68,5 @@ def addMoveToVisitedBlocksList(move):
     validationList.append(list(move))
 
 
-print (calculateLengthOfPossibleMoves(mylist, [3,2],8))
-print (calculateLengthOfPossibleMoves(mylist, [3,2],8))
+#print (calculateLengthOfPossibleMoves(mylist, [2,2],3))
+#print (possibleMoves(mylist, [2,2],3))
