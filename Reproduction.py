@@ -3,8 +3,7 @@ import random
 
 # Point out the function that we are going to use.
 
-def reproduce(individuals, survivalratio):
-    total = len(individuals)/survivalratio
+def reproduce(individuals, total):
     remaining = [None] * (total - len(individuals))
 
     for i in range(0, len(remaining)):
